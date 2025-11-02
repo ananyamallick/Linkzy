@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bookmark Manager — Aesthetic</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css"/>
+
+  <!-- Bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+<body>
+
+  <!-- Left decorative bookmark image -->
+
+  <div class="app" role="application" aria-labelledby="appTitle">
+  <img src="BOOKMARK.png" alt="bookmark image" height="600px" style="border-radius: 25px;"/>
+
+    <!-- LEFT PANEL (form) -->
+    <aside class="panel" aria-hidden="false">
+      <h1 id="appTitle" class="lead">Never lose a good link again.</h1>
+
+      <div class="field">
+        <label for="siteName">Website Name</label>
+        <input id="siteName" type="text" placeholder="Cherry+ Network" />
+      </div>
+
+      <div class="field">
+        <label for="siteURL">Website URL</label>
+        <input id="siteURL" type="url" placeholder="https://cherrynetwork.in/" />
+      </div>
+
+      <div class="field">
+        <label for="siteCategoryBtn">Category</label>
+
+        <!-- Native fallback hidden select (kept for accessibility & easier form reading) -->
+        <select id="siteCategory" aria-hidden="true" style="display:none;">
+          <option value="Social">Social</option>
+          <option value="Study">Study</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Others">Others</option>
+        </select>
+
+        <!-- Custom dropdown (visible) -->
+        <div class="custom-select" id="siteCategoryBtn" tabindex="0" role="combobox" aria-expanded="false" aria-controls="siteCategoryOptions">
+          <button class="select-toggle">
+            <i class="bi bi-people-fill select-icon"></i>
+            <span class="select-label">Social</span>
+            <i class="bi bi-caret-down-fill caret"></i>
+          </button>
+
+          <ul class="select-options" id="siteCategoryOptions" role="listbox">
+            <li role="option" data-value="Social"><i class="bi bi-people-fill"></i> <span>Social</span></li>
+            <li role="option" data-value="Study"><i class="bi bi-journal-bookmark-fill"></i> <span>Study</span></li>
+            <li role="option" data-value="Shopping"><i class="bi bi-bag-fill"></i> <span>Shopping</span></li>
+            <li role="option" data-value="Others"><i class="bi bi-grid-3x3-gap-fill"></i> <span>Others</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="btn" id="addBtn">Add Bookmark</button>
+      </div>
+
+      <hr class="separator" />
+
+      <div class="meta-row">
+        <div class="muted">Saved bookmarks</div>
+        <div class="muted" id="count">0</div>
+      </div>
+    </aside>
+
+    <!-- RIGHT AREA (search + cards) -->
+    <main class="content">
+      <div class="controls" role="region" aria-label="search and filter">
+        <div class="search">
+          <span class="icon">🔎</span>
+          <input id="searchInput" type="search" placeholder="Search by name..." aria-label="Search bookmarks by name" />
+        </div>
+
+        <div class="filter">
+          <!-- Hidden native select for filter (kept, but hidden) -->
+          <select id="filterCategory" style="display:none;">
+            <option value="All categories">All categories</option>
+            <option value="Social">Social</option>
+            <option value="Study">Study</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Others">Others</option>
+          </select>
+
+          <!-- visible custom dropdown for filter -->
+          <div class="custom-select small" id="filterCategoryBtn" tabindex="0" role="combobox" aria-expanded="false" aria-controls="filterCategoryOptions">
+            <button class="select-toggle">
+              <i class="bi bi-funnel-fill select-icon"></i>
+              <span class="select-label">All categories</span>
+              <i class="bi bi-caret-down-fill caret"></i>
+            </button>
+
+            <ul class="select-options" id="filterCategoryOptions" role="listbox">
+              <li role="option" data-value="All categories"><i class="bi bi-list-ul"></i> <span>All categories</span></li>
+              <li role="option" data-value="Social"><i class="bi bi-people-fill"></i> <span>Social</span></li>
+              <li role="option" data-value="Study"><i class="bi bi-journal-bookmark-fill"></i> <span>Study</span></li>
+              <li role="option" data-value="Shopping"><i class="bi bi-bag-fill"></i> <span>Shopping</span></li>
+              <li role="option" data-value="Others"><i class="bi bi-grid-3x3-gap-fill"></i> <span>Others</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div id="listArea" class="bookmark-list" aria-live="polite"></div>
+    </main>
+  </div>
+
+  <!-- Toast (keep, no stray "Saved" text appended anywhere) -->
+  <div class="toast-wrap" aria-live="polite" aria-atomic="true">
+    <div id="toast" class="toast" role="status" aria-hidden="true">
+      <div class="t-icon">★</div>
+      <div class="t-body" id="toastText">Saved</div>
+      <button class="t-close" id="toastClose" aria-label="Close toast">✕</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
